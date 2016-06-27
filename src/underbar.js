@@ -106,17 +106,6 @@
     return _.filter(collection, negate(test));   
   };
 
-  // Produce a duplicate-free version of the array.
-  // _.uniq = function(array) {
-  //   var uniqArray = [];
-  //   _.each(array, function(item) {
-  //     if (_.indexOf(uniqArray, item) === -1) {
-  //       uniqArray.push(item);
-  //     }
-  //   });
-  //   return uniqArray;
-  // };
-
   _.uniq = function(array) {
     var uniqArray = [];
     var isSorted = arguments[1];
@@ -191,10 +180,24 @@
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
     //iterator(accumulator, item)
-    // if (arguments.length === 3) {
-
-    // }
-
+    var total = undefined;
+    if (arguments.length === 3) {
+      var isAccumulatorPresent = true;
+    } 
+    if (isAccumulatorPresent) {
+      total = accumulator;
+      _.each(collection, function(item) {
+        total = iterator(total, item);
+      });
+    } else {
+      total = collection[0];
+      _.each(collection, function(item, index) {
+        if (index !== 0) {
+          total = iterator(total, item);
+        }
+      });
+    };
+    return total;
   };
 
   // Determine if the array or object contains a given value (using `===`).
