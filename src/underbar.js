@@ -108,6 +108,13 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var uniqArray = [];
+    _.each(array, function(item) {
+      if (_.indexOf(uniqArray, item) === -1) {
+        uniqArray.push(item);
+      }
+    });
+    return uniqArray;
   };
 
 
