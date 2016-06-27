@@ -107,13 +107,34 @@
   };
 
   // Produce a duplicate-free version of the array.
+  // _.uniq = function(array) {
+  //   var uniqArray = [];
+  //   _.each(array, function(item) {
+  //     if (_.indexOf(uniqArray, item) === -1) {
+  //       uniqArray.push(item);
+  //     }
+  //   });
+  //   return uniqArray;
+  // };
+
   _.uniq = function(array) {
     var uniqArray = [];
-    _.each(array, function(item) {
-      if (_.indexOf(uniqArray, item) === -1) {
-        uniqArray.push(item);
-      }
-    });
+    var isSorted = arguments[1];
+    var iterator = arguments[2];
+
+    if (isSorted) {
+      _.each(array, function(item, index) {
+        if (item !== array[iterator(index)]) {
+          uniqArray.push(item);
+        }
+      })
+    } else {
+      _.each(array, function(item) {
+        if(_.indexOf(uniqArray, item) === -1) {
+          uniqArray.push(item);
+        }
+      });
+    };
     return uniqArray;
   };
 
@@ -169,6 +190,11 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    //iterator(accumulator, item)
+    // if (arguments.length === 3) {
+
+    // }
+
   };
 
   // Determine if the array or object contains a given value (using `===`).
