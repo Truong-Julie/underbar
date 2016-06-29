@@ -236,18 +236,23 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    var isBool = function(item) {
+      return Boolean(item);
+    };
+
     if (arguments.length < 2) {
       iterator = _.identity;
-    }
+    };
+
+    collection = _.map(_.map(collection, iterator), isBool);
+
     if (collection.length === 0) {
       return false;
-    } else if (_.every(collection, iterator) === true) {
+    } else if (_.every(collection) === true) {
       return true;
     } else {
-      return _.contains(_.map(collection, function(item){
-        return Boolean(item);
-      }), true);
-    }
+      return _.contains(collection, true);
+    };
   };
 
 
