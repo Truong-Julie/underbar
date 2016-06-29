@@ -218,7 +218,7 @@
     // TIP: Try re-using reduce() here.
     if (arguments.length === 2) {
       collection = _.map(collection, iterator)
-    }
+    };
     if (collection.length === 0) {
       return true;
     } else {
@@ -229,13 +229,25 @@
           return Boolean(item);
         }
       }, Boolean(collection[0]));
-    }
+    };
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    if (arguments.length < 2) {
+      iterator = _.identity;
+    }
+    if (collection.length === 0) {
+      return false;
+    } else if (_.every(collection, iterator) === true) {
+      return true;
+    } else {
+      return _.contains(_.map(collection, function(item){
+        return Boolean(item);
+      }), true);
+    }
   };
 
 
