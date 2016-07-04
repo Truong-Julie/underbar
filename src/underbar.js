@@ -176,43 +176,21 @@
 
   _.reduce = function(collection, iterator, accumulator) {
     var total;
-    if (arguments.length < 3) {
-      total = collection[0];
-      _.each(collection, function(item, index) {
-        if (index > 0) {
-          total = iterator(total, item);
-        }
+    if (arguments.length === 3) {
+      total = accumulator;
+      _.each(collection, function(item) {
+        total = iterator(total, item); 
       });
     } else {
-      _.each(collection, function(item) {
-        total = accumulator;
-        total = iterator(total, item); 
+      total = collection[0];
+      _.each(collection, function(item, index) {
+        if (index !== 0) {
+          total = iterator(total, item);
+        }
       });
     }
     return total;
   };
-
-  // _.reduce = function(collection, iterator, accumulator) {
-  //   //iterator(accumulator, item)
-  //   var total = undefined;
-  //   if (arguments.length === 3) {
-  //     var isAccumulatorPresent = true;
-  //   } 
-  //   if (isAccumulatorPresent) {
-  //     total = accumulator;
-  //     _.each(collection, function(item) {
-  //       total = iterator(total, item);
-  //     });
-  //   } else {
-  //     total = collection[0];
-  //     _.each(collection, function(item, index) {
-  //       if (index !== 0) {
-  //         total = iterator(total, item);
-  //       }
-  //     });
-  //   };
-  //   return total;
-  // };
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
