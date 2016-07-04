@@ -40,11 +40,9 @@
   _.last = function(array, n) {
     if (n === undefined) {
       return array[array.length-1];
-    } 
-    else if (n === 0) {
+    } else if (n === 0) {
       return [];
-    } 
-    else {
+    } else {
       return array.slice(-n);
     }
   };
@@ -98,12 +96,9 @@
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
-    var negate = function(fxn) {
-      return function (item) {
-        return !fxn(item);
-      };
-    };
-    return _.filter(collection, negate(test));   
+    return _.filter(collection, function(item){
+      return !test(item);
+    });   
   };
 
   _.uniq = function(array) {
