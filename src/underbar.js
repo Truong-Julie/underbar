@@ -101,6 +101,7 @@
     });   
   };
 
+// var iterator = function(value) { return value + 1; };
   _.uniq = function(array) {
     var uniqArray = [];
     var isSorted = arguments[1];
@@ -108,20 +109,19 @@
 
     if (isSorted) {
       _.each(array, function(item, index) {
-        if (item !== array[iterator(index)]) {
+        if(item !== array[iterator(index)]) {
           uniqArray.push(item);
         }
-      })
+      });
     } else {
       _.each(array, function(item) {
         if(_.indexOf(uniqArray, item) === -1) {
           uniqArray.push(item);
         }
       });
-    };
+    }
     return uniqArray;
   };
-
 
   // Return the results of applying an iterator to each element.
   _.map = function(collection, iterator) {
@@ -173,27 +173,46 @@
   //     return total + number * number;
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
+
   _.reduce = function(collection, iterator, accumulator) {
-    //iterator(accumulator, item)
-    var total = undefined;
-    if (arguments.length === 3) {
-      var isAccumulatorPresent = true;
-    } 
-    if (isAccumulatorPresent) {
-      total = accumulator;
-      _.each(collection, function(item) {
-        total = iterator(total, item);
-      });
-    } else {
+    var total;
+    if (arguments.length < 3) {
       total = collection[0];
       _.each(collection, function(item, index) {
-        if (index !== 0) {
+        if (index > 0) {
           total = iterator(total, item);
         }
       });
-    };
+    } else {
+      _.each(collection, function(item) {
+        total = accumulator;
+        total = iterator(total, item); 
+      });
+    }
     return total;
   };
+
+  // _.reduce = function(collection, iterator, accumulator) {
+  //   //iterator(accumulator, item)
+  //   var total = undefined;
+  //   if (arguments.length === 3) {
+  //     var isAccumulatorPresent = true;
+  //   } 
+  //   if (isAccumulatorPresent) {
+  //     total = accumulator;
+  //     _.each(collection, function(item) {
+  //       total = iterator(total, item);
+  //     });
+  //   } else {
+  //     total = collection[0];
+  //     _.each(collection, function(item, index) {
+  //       if (index !== 0) {
+  //         total = iterator(total, item);
+  //       }
+  //     });
+  //   };
+  //   return total;
+  // };
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
