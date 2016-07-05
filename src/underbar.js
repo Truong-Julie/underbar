@@ -224,6 +224,7 @@
     };
   };
 
+
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
@@ -377,6 +378,15 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    var shuffled = array.slice();
+    var max = shuffled.length-1;
+    _.each(shuffled, function(item, index) {
+      var random = Math.round(Math.random() * (max - index) + index);
+      var tempHolder = shuffled[random];
+      shuffled[random] = shuffled[index];
+      shuffled[index] = tempHolder;
+    })
+    return shuffled;
   };
 
 
